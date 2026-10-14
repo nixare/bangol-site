@@ -34,28 +34,40 @@ html.en .i18n [lang=it]{display:none}
 html:not(.en) .lang [data-l=it],html.en .lang [data-l=en]{background:var(--safelight);color:var(--darkroom)}
 .lang button:focus-visible{outline:2px solid var(--safelight);outline-offset:-2px}
 
-/* Hero: the room, the lamp lit */
-.hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
-.hero .art{position:absolute;inset:0;z-index:-2;background:url(img/room.webp) center 22%/cover no-repeat}
+/* Hero: Helide by night, the match playing in a phone */
+.hero{position:relative;min-height:100svh;display:flex;align-items:center;overflow:hidden;isolation:isolate;padding-bottom:40px}
+.hero .art{position:absolute;inset:0;z-index:-2;background:url(img/hero_lab.webp) 62% 30%/cover no-repeat;filter:saturate(1.05)}
 .hero::before{content:"";position:absolute;inset:0;z-index:-1;
-  background:linear-gradient(180deg,rgba(27,21,18,.55) 0%,rgba(27,21,18,0) 18%,rgba(27,21,18,.1) 40%,rgba(27,21,18,.9) 66%,var(--darkroom) 100%)}
-.glow{position:absolute;z-index:-1;width:80vmax;height:80vmax;left:42%;top:12%;transform:translate(-50%,-50%);
-  background:radial-gradient(closest-side,rgba(242,163,58,.30),rgba(242,163,58,0));pointer-events:none;animation:breathe 6s ease-in-out infinite}
+  background:linear-gradient(180deg,rgba(27,21,18,.75) 0%,rgba(27,21,18,.55) 30%,rgba(27,21,18,.88) 62%,var(--darkroom) 100%)}
+.glow{position:absolute;z-index:-1;width:80vmax;height:80vmax;left:50%;top:70%;transform:translate(-50%,-50%);
+  background:radial-gradient(closest-side,rgba(242,163,58,.22),rgba(242,163,58,0));pointer-events:none;animation:breathe 6s ease-in-out infinite}
 @keyframes breathe{50%{opacity:.55}}
-.hero .wrap{padding-top:96px;padding-bottom:48px;width:100%}
+.hero .wrap{padding-top:84px;padding-bottom:24px;width:100%}
+.hero-grid{display:grid;gap:34px;align-items:center}
 .hero h1{font-size:clamp(88px,26vw,176px);color:var(--sheet);text-shadow:0 0 40px rgba(242,163,58,.35),0 4px 0 rgba(0,0,0,.35)}
-.tagline{font:clamp(28px,7vw,42px)/1.1 var(--marker);color:var(--safelight);margin:4px 0 14px}
-.lede{max-width:34rem;font-size:17px;color:rgba(239,231,211,.9);margin:0 0 26px}
+.tagline{font:clamp(30px,8vw,46px)/1.1 var(--marker);color:var(--safelight);margin:6px 0 12px}
+.hook{max-width:32rem;font-size:clamp(18px,4.6vw,21px);line-height:1.5;color:rgba(239,231,211,.92);margin:0 0 18px}
+.hook em{font-style:normal;color:var(--sheet);font-weight:700}
+.chips{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin:0 0 24px;padding:0}
+.chips li{font:600 13px/1 var(--sans);padding:8px 12px;border-radius:999px;border:1px solid rgba(242,163,58,.45);background:rgba(27,21,18,.55);color:var(--sheet)}
 .stores{display:flex;flex-wrap:wrap;gap:12px}
-.store{display:inline-flex;align-items:center;gap:12px;flex:1 1 200px;max-width:260px;padding:11px 18px 11px 14px;border-radius:12px;text-decoration:none;
+.store{display:inline-flex;align-items:center;gap:12px;flex:1 1 200px;max-width:270px;padding:12px 18px 12px 14px;border-radius:12px;text-decoration:none;
   background:var(--sheet);color:var(--darkroom);box-shadow:0 6px 0 rgba(0,0,0,.35);transition:transform .15s ease,box-shadow .15s ease}
 .store:hover{transform:translateY(-2px);box-shadow:0 8px 0 rgba(0,0,0,.35)}
 .store:active{transform:translateY(2px);box-shadow:0 3px 0 rgba(0,0,0,.35)}
-.store.amber{background:var(--safelight)}
+/* The visitor's own store first and amber; a computer: the App Store amber, both shown. */
+.store-apple{background:var(--safelight)}
+html.android .store-play{order:-1;background:var(--safelight)}
+html.android .store-apple{background:var(--sheet)}
 .store svg{width:26px;height:26px;flex:none}
 .store small{display:block;font:600 11px/1.1 var(--sans);letter-spacing:.04em;opacity:.75}
 .store b{display:block;font:700 19px/1.15 var(--sans)}
 .store:focus-visible{outline:3px solid var(--sheet);outline-offset:3px}
+.phone{justify-self:center;width:min(64vw,270px);aspect-ratio:886/1840;border-radius:42px;padding:10px;background:#0d0a09;
+  border:1px solid rgba(239,231,211,.14);box-shadow:0 30px 60px rgba(0,0,0,.6),0 0 80px rgba(242,163,58,.18);transform:rotate(2deg)}
+.phone video{width:100%;height:100%;object-fit:cover;object-position:top;border-radius:33px;display:block;background:var(--darkroom)}
+.scroll-cue{position:absolute;left:50%;bottom:14px;transform:translateX(-50%);color:var(--muted);text-decoration:none;font-size:22px;animation:cue 2.4s ease-in-out infinite}
+@keyframes cue{50%{transform:translate(-50%,6px)}}
 
 /* Sections */
 section{padding:64px 0}
@@ -86,14 +98,15 @@ section{padding:64px 0}
 .strip:focus-visible{outline:2px solid var(--safelight);outline-offset:4px}
 .strip-hint{font-size:13px;color:var(--muted);margin:0}
 
-/* Modes: the objects of the room */
-.modes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.mode{background:var(--tray);border:1px solid var(--line);border-radius:var(--radius);padding:14px 14px 18px;display:flex;flex-direction:column;gap:8px;position:relative;overflow:hidden}
-.mode .pic{height:112px;display:flex;align-items:flex-end;justify-content:center;position:relative}
-.mode .pic::before{content:"";position:absolute;inset:6% 10%;background:radial-gradient(closest-side,rgba(242,163,58,.30),transparent)}
-.mode .pic img{max-height:112px;max-width:100%;width:auto;position:relative;object-fit:contain;filter:brightness(1.2) drop-shadow(0 6px 10px rgba(0,0,0,.5))}
-.mode h3{font-size:26px;color:var(--sheet)}
-.mode p{margin:0;font-size:14.5px;color:rgba(239,231,211,.78);line-height:1.5}
+/* Modes: the home's covers, Helide's noir */
+.modes{display:grid;grid-template-columns:1fr;gap:14px}
+.mode{background:var(--tray);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;
+  transition:transform .2s ease,border-color .2s ease}
+.mode:hover{transform:translateY(-3px);border-color:rgba(242,163,58,.45)}
+.mode img{width:100%;aspect-ratio:16/9;object-fit:cover}
+.mode > div{padding:14px 16px 18px}
+.mode h3{font-size:28px;color:var(--sheet);margin-bottom:4px}
+.mode p{margin:0;font-size:15px;color:rgba(239,231,211,.8);line-height:1.5}
 
 /* Fair */
 .fair{display:grid;gap:26px;align-items:center}
@@ -107,6 +120,30 @@ section{padding:64px 0}
 .door figcaption{position:absolute;left:0;right:0;bottom:0;padding:48px 18px 16px;background:linear-gradient(transparent,rgba(27,21,18,.95))}
 .door h3{font-size:34px}
 .door p{margin:2px 0 0;color:rgba(239,231,211,.88);font-size:15px}
+
+/* The last call: the buttons again, the QR for a computer */
+.final{position:relative;overflow:hidden;isolation:isolate;text-align:left}
+.final-art{position:absolute;inset:0;z-index:-1;background:url(img/cover_quick.webp) center/cover no-repeat;opacity:.28;filter:blur(2px)}
+.final::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,var(--darkroom),rgba(27,21,18,.6) 40%,var(--darkroom))}
+.final-grid{display:grid;gap:28px;align-items:center}
+.qr{margin:0;display:none;flex-direction:column;align-items:center;gap:10px;color:var(--muted);font-size:14px}
+.qr img{width:164px;height:164px;border-radius:12px;padding:10px;background:var(--sheet);box-shadow:0 12px 30px rgba(0,0,0,.5)}
+html:not(.android):not(.apple) .qr{display:flex}
+
+/* The dock: a phone's bar with its own store, once the hero is past */
+.dock{position:fixed;left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom));z-index:20;display:none;align-items:center;gap:12px;
+  padding:10px 10px 10px 12px;border-radius:16px;background:rgba(43,35,32,.94);border:1px solid rgba(242,163,58,.35);
+  box-shadow:0 12px 30px rgba(0,0,0,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  transform:translateY(140%);transition:transform .25s ease}
+.dock img{width:40px;height:40px;border-radius:10px}
+.dock div{flex:1;min-width:0}
+.dock b{display:block;font:22px/1 var(--marker)}
+.dock small{display:block;font-size:12.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dock-get{display:none;font:700 15px var(--sans);color:var(--darkroom);background:var(--safelight);padding:10px 18px;border-radius:10px;text-decoration:none}
+html.apple .dock,html.android .dock{display:flex}
+html.apple .dock .store-apple,html.android .dock .store-play{display:inline-block}
+.dock.on{transform:none}
+html.apple body,html.android body{padding-bottom:84px}
 
 /* Maker and support */
 .maker{display:grid;gap:18px;align-items:center}
@@ -146,24 +183,33 @@ footer a:hover{color:var(--safelight)}
   section{padding:88px 0}
   .frames{grid-template-columns:repeat(3,1fr)}
   .frame{grid-template-columns:1fr}
-  .modes{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
-  .mode .pic{height:140px}.mode .pic img{max-height:140px}
+  .modes{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
   .fair{grid-template-columns:1fr 1.1fr;gap:44px}
   .maker{grid-template-columns:auto 1fr;gap:28px}
-  .hero{align-items:center}
-  .hero .art{left:34%;background-position:center 22%}
-  .hero::before{background:linear-gradient(90deg,var(--darkroom) 32%,rgba(27,21,18,.55) 50%,rgba(27,21,18,0) 72%),
+  .hero-grid{grid-template-columns:1.25fr .75fr;gap:48px}
+  .hero .art{background-position:center 30%}
+  .hero::before{background:linear-gradient(90deg,var(--darkroom) 18%,rgba(27,21,18,.72) 48%,rgba(27,21,18,.35) 75%),
     linear-gradient(180deg,rgba(27,21,18,.45) 0%,transparent 22%,transparent 72%,var(--darkroom) 100%)}
-  .glow{left:66%;top:14%}
+  .glow{left:74%;top:52%}
+  .phone{width:min(30vw,320px)}
+  .final-grid{grid-template-columns:1fr auto;gap:48px}
   .paper{padding:40px 44px 24px}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
-  .glow{animation:none}
-  .store{transition:none}
+  .glow,.scroll-cue{animation:none}
+  .store,.mode,.dock{transition:none}
 }
 
 /* The app's icon at the left of the title, as on the store (10/2026). */
 .title-row{display:flex;align-items:center;gap:clamp(14px,3vw,28px)}
 .app-icon{width:clamp(64px,20vw,168px);height:auto;aspect-ratio:1;border-radius:22.5%;box-shadow:0 10px 30px rgba(0,0,0,.55),0 0 40px rgba(242,163,58,.28);flex:none}
 .title-row h1{font-size:clamp(60px,22vw,176px);min-width:0}
+.store.amber{background:var(--safelight)}
+@media (min-width:720px){
+  .title-row h1{font-size:clamp(60px,11vw,148px)}
+  .app-icon{width:clamp(64px,11vw,140px)}
+}
+@media (min-width:1000px){
+  .modes{grid-template-columns:repeat(3,minmax(0,1fr))}
+}

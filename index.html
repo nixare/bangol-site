@@ -4,29 +4,41 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Bangol – Il duello foto a due</title>
-<meta name="description" content="Bangol: una foto sotto un provino a contatto, due giocatori, una matita a testa. Nominala per primo, vedendone il meno possibile. Per iPhone, iPad e Android.">
+<meta name="description" content="Bangol: una foto sotto un provino a contatto, due giocatori, una matita a testa. Nominala per primo, vedendone il meno possibile. Gratis per iPhone, iPad e Android.">
 <meta name="theme-color" content="#1B1512">
+<link rel="canonical" href="https://nixare.github.io/bangol-site/">
 <meta property="og:title" content="Bangol – Il duello foto a due">
 <meta property="og:description" content="Una foto sotto un provino a contatto: nominala per primo, vedendone il meno possibile.">
-<meta property="og:image" content="https://nicobass86.github.io/bangol-site/img/og.jpg">
+<meta property="og:image" content="https://nixare.github.io/bangol-site/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://nixare.github.io/bangol-site/">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="apple-itunes-app" content="app-id=6811360804">
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preload" href="fonts/PatrickHandSC-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="img/hero_lab.webp" as="image">
 <link rel="stylesheet" href="style.css">
 <script>
 // Italian first; an English browser, #en or the switch shows the English.
 (function () {
-  var en = location.hash === "#en";
+  var d = document.documentElement, en = location.hash === "#en";
   try { var s = localStorage.getItem("lang"); if (s) en = s === "en"; else if (!en) en = !/^it\b/i.test(navigator.language || "it"); } catch (e) {}
-  if (en) { document.documentElement.classList.add("en"); document.documentElement.lang = "en"; }
+  if (en) { d.classList.add("en"); d.lang = "en"; }
+  // The visitor's own store first (an ad lands on a phone): Android or Apple, a computer sees both and the QR.
+  var ua = navigator.userAgent || "";
+  if (/android/i.test(ua)) d.classList.add("android");
+  else if (/iphone|ipad|ipod/i.test(ua) || (/macintosh/i.test(ua) && "ontouchend" in document)) d.classList.add("apple");
 })();
 function setLang(l) {
-  document.documentElement.classList.toggle("en", l === "en");
-  document.documentElement.lang = l;
+  var d = document.documentElement;
+  d.classList.toggle("en", l === "en");
+  d.lang = l;
   try { localStorage.setItem("lang", l); } catch (e) {}
+  var v = document.getElementById("reel");
+  if (v) { var src = "img/reel_" + l + ".mp4"; if (v.getAttribute("src") !== src) { v.poster = "img/reel_" + l + ".webp"; v.src = src; v.play().catch(function () {}); } }
 }
 </script>
 </head>
@@ -44,27 +56,43 @@ function setLang(l) {
 
 <main>
 <section class="hero" aria-labelledby="title">
-  <div class="art" role="img" aria-label="La stanza di Bangol: una camera oscura disegnata a matita, con la lampada accesa"></div>
+  <div class="art" role="img" aria-label="Helide, 1957: un fotografo sotto la torre dell'orologio"></div>
   <div class="glow" aria-hidden="true"></div>
-  <div class="wrap">
-    <div class="title-row"><img class="app-icon" src="img/icon-hero.webp" alt="" width="192" height="192"><h1 id="title">Bangol</h1></div>
-    <p class="tagline"><span lang="it">Il duello foto a due</span><span lang="en">The photo duel for two</span></p>
-    <p class="lede">
-      <span lang="it">Una foto si nasconde sotto un provino a contatto. Due giocatori, una matita a testa: chi chiude un fotogramma lo sviluppa e lo vede solo lui. Dai un nome alla foto per primo, avendone visto il meno possibile.</span>
-      <span lang="en">A photo hides under a contact sheet. Two players, a pencil each: whoever closes a frame develops it and sees it alone. Name the photo first, having seen as little as you can.</span>
-    </p>
-    <div class="stores">
-      <a class="store amber" href="https://apps.apple.com/app/id6811360804">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 7v7m-3-3 3 3 3-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <span><small lang="it">Scarica su</small><small lang="en">Download on the</small><b>App Store</b></span>
-      </a>
-      <a class="store" href="https://play.google.com/store/apps/details?id=com.nixare.bangol">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.5v17l14-8.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
-        <span><small lang="it">Disponibile su</small><small lang="en">Get it on</small><b>Google Play</b></span>
-      </a>
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <div class="title-row"><img class="app-icon" src="img/icon-hero.webp" alt="" width="192" height="192"><h1 id="title">Bangol</h1></div>
+      <p class="tagline"><span lang="it">Il duello foto a due</span><span lang="en">The photo duel for two</span></p>
+      <p class="hook">
+        <span lang="it">Una foto nascosta. Due matite. <em>Chi la indovina per primo, vedendone meno, vince.</em></span>
+        <span lang="en">One hidden photo. Two pencils. <em>Whoever names it first, having seen less, wins.</em></span>
+      </p>
+      <ul class="chips" role="list">
+        <li><span lang="it">Gratis</span><span lang="en">Free</span></li>
+        <li><span lang="it">2 minuti a partita</span><span lang="en">2-minute matches</span></li>
+        <li><span lang="it">Due telefoni, senza account</span><span lang="en">Two phones, no account</span></li>
+        <li><span lang="it">Per tutta la famiglia</span><span lang="en">For the whole family</span></li>
+      </ul>
+      <div class="stores" id="get">
+        <a class="store store-apple" href="https://apps.apple.com/app/id6811360804?pt=bangol&amp;ct=site&amp;mt=8">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 7v7m-3-3 3 3 3-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span><small lang="it">Scarica gratis su</small><small lang="en">Free on the</small><b>App Store</b></span>
+        </a>
+        <a class="store store-play" href="https://play.google.com/store/apps/details?id=com.nixare.bangol&amp;referrer=utm_source%3Dsite">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.5v17l14-8.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+          <span><small lang="it">Scarica gratis su</small><small lang="en">Free on</small><b>Google Play</b></span>
+        </a>
+      </div>
+    </div>
+    <div class="phone" aria-label="Una partita di Bangol" role="img">
+      <video id="reel" src="img/reel_it.mp4" poster="img/reel_it.webp" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
     </div>
   </div>
+  <a class="scroll-cue" href="#come" aria-label="Come si gioca / How it plays"><span aria-hidden="true">↓</span></a>
 </section>
+<script>
+// The English reel for an English page, before it loads.
+if (document.documentElement.classList.contains("en")) { var r = document.getElementById("reel"); r.poster = "img/reel_en.webp"; r.src = "img/reel_en.mp4"; }
+</script>
 
 <section id="come" aria-labelledby="how">
   <div class="wrap">
@@ -93,59 +121,60 @@ function setLang(l) {
   </div>
 </section>
 
-<section aria-labelledby="look">
-  <div class="wrap">
-    <p class="kicker"><span lang="it">Dentro il gioco</span><span lang="en">Inside the game</span></p>
-    <h2 class="section-title" id="look"><span lang="it">La tua camera oscura</span><span lang="en">Your darkroom</span></h2>
-    <p class="section-lede"><span lang="it">La home è una stanza: ogni cosa che brilla è un modo di giocare.</span><span lang="en">The home is a room: everything that glows is a way to play.</span></p>
-    <div class="strip" lang="it" tabindex="0" aria-label="Schermate">
-      <figure><img src="img/shot_it_1.webp" alt="La home: la camera oscura, ogni oggetto un modo di giocare" width="460" height="1000" loading="lazy"></figure>
-      <figure><img src="img/shot_it_3.webp" alt="Una partita: il provino, i lati tracciati, l'orologio" width="460" height="1000" loading="lazy"></figure>
-      <figure><img src="img/shot_it_5.webp" alt="Il risultato: la foto svelata e il punteggio" width="460" height="1000" loading="lazy"></figure>
-      <figure><img src="img/shot_it_2.webp" alt="Sfida un amico: qui accanto, a distanza, stesso telefono" width="460" height="1000" loading="lazy"></figure>
-      <figure><img src="img/shot_it_4.webp" alt="Sviluppo rapido: livelli senza fine in rullini da 36" width="460" height="1000" loading="lazy"></figure>
-      <figure><img src="img/shot_it_6.webp" alt="La storia: la mappa di Helide, nove rivali" width="460" height="1000" loading="lazy"></figure>
-      <figure><img src="img/shot_it_7.webp" alt="Per i piccoli: nessun orologio, quattro parole" width="460" height="1000" loading="lazy"></figure>
-      <figure><img src="img/shot_it_8.webp" alt="Il registro: stampe, record, giorni di fila" width="460" height="1000" loading="lazy"></figure>
-    </div>
-    <div class="strip" lang="en" tabindex="0" aria-label="Screenshots">
-      <figure><img src="img/shot_en_1.webp" alt="The home: the darkroom, every object a way to play" width="460" height="1000" loading="lazy"></figure>
-      <figure><img src="img/shot_en_3.webp" alt="A match: the contact sheet, traced edges, the clock" width="460" height="1000" loading="lazy"></figure>
-      <figure><img src="img/shot_en_5.webp" alt="The result: the photo revealed and the score" width="460" height="1000" loading="lazy"></figure>
-      <figure><img src="img/shot_en_2.webp" alt="Challenge a friend: right here, far away, same phone" width="460" height="1000" loading="lazy"></figure>
-      <figure><img src="img/shot_en_4.webp" alt="Quick Develop: endless levels in rolls of 36" width="460" height="1000" loading="lazy"></figure>
-      <figure><img src="img/shot_en_6.webp" alt="The story: the map of Helide, nine rivals" width="460" height="1000" loading="lazy"></figure>
-      <figure><img src="img/shot_en_7.webp" alt="For kids: no clock, four words" width="460" height="1000" loading="lazy"></figure>
-      <figure><img src="img/shot_en_8.webp" alt="The register: prints, records, streaks" width="460" height="1000" loading="lazy"></figure>
-    </div>
-    <p class="strip-hint" aria-hidden="true"><span lang="it">Scorri →</span><span lang="en">Swipe →</span></p>
-  </div>
-</section>
-
 <section aria-labelledby="modes">
   <div class="wrap">
     <p class="kicker"><span lang="it">I modi di giocare</span><span lang="en">Ways to play</span></p>
-    <h2 class="section-title" id="modes"><span lang="it">Ogni cosa che brilla</span><span lang="en">Everything that glows</span></h2>
+    <h2 class="section-title" id="modes"><span lang="it">Una foto, tanti modi</span><span lang="en">One photo, many ways</span></h2>
     <div class="modes">
-      <article class="mode"><div class="pic"><img src="img/obj_friend.webp" alt="" loading="lazy"></div>
-        <h3><span lang="it">Sfida un amico</span><span lang="en">Challenge a friend</span></h3>
-        <p><span lang="it">Due telefoni fianco a fianco senza account, a distanza a turni, o da due a quattro passandovi il telefono.</span><span lang="en">Two phones side by side with no account, far away in turns, or two to four passing one phone.</span></p></article>
-      <article class="mode"><div class="pic"><img src="img/obj_quick_glow.webp" alt="" loading="lazy"></div>
-        <h3><span lang="it">Sviluppo rapido</span><span lang="en">Quick Develop</span></h3>
-        <p><span lang="it">Livelli senza fine in rullini da 36, ognuno un'epoca della fotografia. Bronzo, argento, oro.</span><span lang="en">Endless levels in rolls of 36, each an era of photography. Bronze, silver, gold.</span></p></article>
-      <article class="mode"><div class="pic"><img src="img/obj_story.webp" alt="" loading="lazy"></div>
-        <h3><span lang="it">Lo scoop dell'Orologio</span><span lang="en">The Clock Scoop</span></h3>
-        <p><span lang="it">Helide, 1957: nove rivali sulla mappa della città, una storia noir, un indovinello per ogni notte.</span><span lang="en">Helide, 1957: nine rivals across the city map, a noir story, a riddle for every night.</span></p></article>
-      <article class="mode"><div class="pic"><img src="img/obj_daily.webp" alt="" loading="lazy"></div>
-        <h3><span lang="it">La giornaliera</span><span lang="en">The daily</span></h3>
-        <p><span lang="it">Una foto al giorno, uguale per tutti. Condividi la griglia e confrontati sulla classifica.</span><span lang="en">One photo a day, the same for everyone. Share the grid and compare on the leaderboard.</span></p></article>
-      <article class="mode"><div class="pic"><img src="img/obj_rullini.webp" alt="" loading="lazy"></div>
-        <h3><span lang="it">Rullini</span><span lang="en">Rolls</span></h3>
-        <p><span lang="it">Rullini a tema da 36 foto che arrivano senza aggiornamento, o un rullino tuo con le foto del telefono.</span><span lang="en">Themed rolls of 36 photos that arrive without an update, or a roll of your own from your phone's photos.</span></p></article>
-      <article class="mode"><div class="pic"><img src="img/obj_kids.webp" alt="" loading="lazy"></div>
-        <h3><span lang="it">Per i piccoli</span><span lang="en">For kids</span></h3>
-        <p><span lang="it">Un foglio 4×4 senza orologio: il nome si sceglie fra quattro parole lette ad alta voce. Niente pubblicità.</span><span lang="en">A 4×4 sheet with no clock: the name is picked among four words read aloud. No ads.</span></p></article>
+      <article class="mode"><img src="img/cover_quick.webp" alt="" width="900" height="504" loading="lazy">
+        <div><h3><span lang="it">Sviluppo rapido</span><span lang="en">Quick Develop</span></h3>
+        <p><span lang="it">Livelli senza fine in rullini da 36, ognuno un'epoca della fotografia. Bronzo, argento, oro.</span><span lang="en">Endless levels in rolls of 36, each an era of photography. Bronze, silver, gold.</span></p></div></article>
+      <article class="mode"><img src="img/cover_lab.webp" alt="" width="900" height="504" loading="lazy">
+        <div><h3><span lang="it">Lo scoop dell'Orologio</span><span lang="en">The Clock Scoop</span></h3>
+        <p><span lang="it">Helide, 1957: nove rivali sulla mappa della città, una storia noir, un indovinello per ogni notte.</span><span lang="en">Helide, 1957: nine rivals across the city map, a noir story, a riddle for every night.</span></p></div></article>
+      <article class="mode"><img src="img/cover_nearby.webp" alt="" width="900" height="504" loading="lazy">
+        <div><h3><span lang="it">Sfida un amico</span><span lang="en">Challenge a friend</span></h3>
+        <p><span lang="it">Due telefoni fianco a fianco senza account, a distanza a turni, o da due a quattro passandovi il telefono.</span><span lang="en">Two phones side by side with no account, far away in turns, or two to four passing one phone.</span></p></div></article>
+      <article class="mode"><img src="img/cover_daily.webp" alt="" width="900" height="504" loading="lazy">
+        <div><h3><span lang="it">La giornaliera</span><span lang="en">The daily</span></h3>
+        <p><span lang="it">Una foto al giorno, uguale per tutti. Condividi la griglia e confrontati sulla classifica.</span><span lang="en">One photo a day, the same for everyone. Share the grid and compare on the leaderboard.</span></p></div></article>
+      <article class="mode"><img src="img/cover_online.webp" alt="" width="900" height="504" loading="lazy">
+        <div><h3><span lang="it">Rullini</span><span lang="en">Rolls</span></h3>
+        <p><span lang="it">Rullini a tema da 36 foto che arrivano senza aggiornamento, o un rullino tuo con le foto del telefono.</span><span lang="en">Themed rolls of 36 photos that arrive without an update, or a roll of your own from your phone's photos.</span></p></div></article>
+      <article class="mode"><img src="img/cover_kids.webp" alt="" width="900" height="504" loading="lazy">
+        <div><h3><span lang="it">Per i piccoli</span><span lang="en">For kids</span></h3>
+        <p><span lang="it">Un foglio 4×4 senza orologio: il nome si sceglie fra quattro parole lette ad alta voce. Niente pubblicità.</span><span lang="en">A 4×4 sheet with no clock: the name is picked among four words read aloud. No ads.</span></p></div></article>
     </div>
+  </div>
+</section>
+
+<section aria-labelledby="look">
+  <div class="wrap">
+    <p class="kicker"><span lang="it">Dentro il gioco</span><span lang="en">Inside the game</span></p>
+    <h2 class="section-title" id="look"><span lang="it">Guarda da vicino</span><span lang="en">Take a closer look</span></h2>
+    <div class="strip" lang="it" tabindex="0" aria-label="Schermate">
+      <figure><img src="img/shot_it_1.webp" alt="La home: Sviluppo rapido, la giornaliera, gli altri modi di giocare" width="460" height="1000" loading="lazy"></figure>
+      <figure><img src="img/shot_it_2.webp" alt="Una partita: il provino, i lati tracciati, l'orologio" width="460" height="1000" loading="lazy"></figure>
+      <figure><img src="img/shot_it_3.webp" alt="Il risultato: la foto svelata, il punteggio, la medaglia" width="460" height="1000" loading="lazy"></figure>
+      <figure><img src="img/shot_it_4.webp" alt="Sfida un amico: qui accanto, a distanza, stesso telefono" width="460" height="1000" loading="lazy"></figure>
+      <figure><img src="img/shot_it_5.webp" alt="Sviluppo rapido: il rullino da 36 pose" width="460" height="1000" loading="lazy"></figure>
+      <figure><img src="img/shot_it_6.webp" alt="La storia: la mappa di Helide" width="460" height="1000" loading="lazy"></figure>
+      <figure><img src="img/shot_it_7.webp" alt="Per i piccoli: scatole di foto da sviluppare" width="460" height="1000" loading="lazy"></figure>
+      <figure><img src="img/shot_it_8.webp" alt="Rullini: crea il tuo rullino o scegli un tema" width="460" height="1000" loading="lazy"></figure>
+      <figure><img src="img/shot_it_9.webp" alt="L'album: le stampe sviluppate" width="460" height="1000" loading="lazy"></figure>
+    </div>
+    <div class="strip" lang="en" tabindex="0" aria-label="Screenshots">
+      <figure><img src="img/shot_en_1.webp" alt="The home: Quick Develop, the daily, the other ways to play" width="460" height="1000" loading="lazy"></figure>
+      <figure><img src="img/shot_en_2.webp" alt="A match: the contact sheet, traced edges, the clock" width="460" height="1000" loading="lazy"></figure>
+      <figure><img src="img/shot_en_3.webp" alt="The result: the photo revealed, the score, the medal" width="460" height="1000" loading="lazy"></figure>
+      <figure><img src="img/shot_en_4.webp" alt="Challenge a friend: right here, far away, same phone" width="460" height="1000" loading="lazy"></figure>
+      <figure><img src="img/shot_en_5.webp" alt="Quick Develop: the roll of 36 frames" width="460" height="1000" loading="lazy"></figure>
+      <figure><img src="img/shot_en_6.webp" alt="The story: the map of Helide" width="460" height="1000" loading="lazy"></figure>
+      <figure><img src="img/shot_en_7.webp" alt="For kids: boxes of photos to develop" width="460" height="1000" loading="lazy"></figure>
+      <figure><img src="img/shot_en_8.webp" alt="Rolls: make your own roll or pick a theme" width="460" height="1000" loading="lazy"></figure>
+      <figure><img src="img/shot_en_9.webp" alt="The album: your developed prints" width="460" height="1000" loading="lazy"></figure>
+    </div>
+    <p class="strip-hint" aria-hidden="true"><span lang="it">Scorri →</span><span lang="en">Swipe →</span></p>
   </div>
 </section>
 
@@ -168,6 +197,30 @@ function setLang(l) {
         <h3>Camera oscura</h3>
         <p><span lang="it">Un acquisto solo, per tutta la famiglia: niente più pubblicità, 540 sali subito, un rullino a scelta, l'album senza limiti.</span><span lang="en">One purchase, for the whole family: no more ads, 540 salts at once, a roll of your choice, the album without limits.</span></p>
       </figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="final" aria-labelledby="final">
+  <div class="final-art" aria-hidden="true"></div>
+  <div class="wrap final-grid">
+    <div>
+      <h2 class="section-title" id="final"><span lang="it">La prima foto ti aspetta</span><span lang="en">The first photo is waiting</span></h2>
+      <p class="section-lede"><span lang="it">Gratis su iPhone, iPad e Android. Nessun account: apri e gioca.</span><span lang="en">Free on iPhone, iPad and Android. No account: open it and play.</span></p>
+      <div class="stores">
+        <a class="store store-apple" href="https://apps.apple.com/app/id6811360804?pt=bangol&amp;ct=site&amp;mt=8">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 7v7m-3-3 3 3 3-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span><small lang="it">Scarica gratis su</small><small lang="en">Free on the</small><b>App Store</b></span>
+        </a>
+        <a class="store store-play" href="https://play.google.com/store/apps/details?id=com.nixare.bangol&amp;referrer=utm_source%3Dsite">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.5v17l14-8.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+          <span><small lang="it">Scarica gratis su</small><small lang="en">Free on</small><b>Google Play</b></span>
+        </a>
+      </div>
+    </div>
+    <figure class="qr">
+      <img src="img/qr.svg" alt="Codice QR per scaricare Bangol" width="164" height="164" loading="lazy">
+      <figcaption><span lang="it">Inquadralo col telefono</span><span lang="en">Scan it with your phone</span></figcaption>
     </figure>
   </div>
 </section>
@@ -196,6 +249,28 @@ function setLang(l) {
   </div>
 </section>
 </main>
+
+<!-- On a phone, once the hero's buttons are past: one bar with the phone's own store. -->
+<div class="dock" id="dock" aria-hidden="true">
+  <img src="img/icon.webp" alt="" width="40" height="40">
+  <div><b>Bangol</b><small><span lang="it">Il duello foto a due · Gratis</span><span lang="en">The photo duel for two · Free</span></small></div>
+  <a class="dock-get store-apple" href="https://apps.apple.com/app/id6811360804?pt=bangol&amp;ct=site_dock&amp;mt=8" tabindex="-1"><span lang="it">Scarica</span><span lang="en">Get it</span></a>
+  <a class="dock-get store-play" href="https://play.google.com/store/apps/details?id=com.nixare.bangol&amp;referrer=utm_source%3Dsite_dock" tabindex="-1"><span lang="it">Scarica</span><span lang="en">Get it</span></a>
+</div>
+<script>
+(function () {
+  var dock = document.getElementById("dock"), get = document.getElementById("get");
+  if (!("IntersectionObserver" in window) || !dock || !get) return;
+  new IntersectionObserver(function (e) {
+    var on = !e[0].isIntersecting && e[0].boundingClientRect.top < 0;
+    dock.classList.toggle("on", on);
+    dock.setAttribute("aria-hidden", on ? "false" : "true");
+    dock.querySelectorAll("a").forEach(function (a) { a.tabIndex = on ? 0 : -1; });
+  }).observe(get);
+  var v = document.getElementById("reel");
+  if (v && window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) { v.removeAttribute("autoplay"); v.pause(); }
+})();
+</script>
 
 <footer>
   <div class="wrap">
