@@ -1,0 +1,41 @@
+<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Bangol – Una partita per te</title><meta name="theme-color" content="#1B1512"><link rel="icon" type="image/png" href="favicon.png"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="stylesheet" href="style.css">
+<meta property="og:title" content="Una partita a Bangol / A Bangol match"><meta property="og:description" content="Il duello foto a due, a turni. / The photo duel for two, turn by turn.">
+<script>
+// A friend's invite to a match (14/10/2026, docs/online.md in the app's repo): `?m=<id>`. With
+// Bangol installed the phone opens bangol://match/<id> and the app takes the seat; without it,
+// the page stays and shows the stores. The id is letters and digits only, or nothing is opened.
+(function () {
+  var m = (new URLSearchParams(location.search).get("m") || "").replace(/[^A-Za-z0-9]/g, "");
+  var ua = navigator.userAgent || "";
+  var apple = "https://apps.apple.com/app/id6811360804?pt=bangol&ct=invite&mt=8";
+  var play = "https://play.google.com/store/apps/details?id=com.nixare.bangol&referrer=" + encodeURIComponent("utm_source=invite");
+  window.__invite = { app: m ? "bangol://match/" + m : null, apple: apple, play: play, android: /android/i.test(ua) };
+  if (m) location.href = "bangol://match/" + m;
+})();
+</script></head><body>
+<header class="page-top"><div class="wrap"><a class="brand" href="index.html"><img src="img/icon.webp" alt="" width="34" height="34">Bangol</a>
+<nav aria-label="Pagine / Pages"><a href="index.html#supporto">Supporto / Support</a><a href="privacy.html">Privacy</a></nav></div></header>
+<main class="doc">
+<article class="paper">
+<h1>Una partita per te</h1>
+<p>Un amico ti ha tenuto il posto a Bangol, il duello foto a due a turni. / A friend kept you a seat at Bangol, the photo duel for two, turn by turn.</p>
+<div class="stores">
+<a class="store amber" id="open" href="#"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><small>Bangol</small><b>Apri la partita / Open the match</b></span></a>
+</div>
+<p>Non hai ancora Bangol? Scaricalo, poi tocca di nuovo il link. / No Bangol yet? Get it, then tap the link again.</p>
+<div class="stores">
+<a class="store" style="background:var(--darkroom);color:var(--sheet)" id="apple" href="https://apps.apple.com/app/id6811360804"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 7v7m-3-3 3 3 3-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><small>App Store</small><b>iPhone · iPad</b></span></a>
+<a class="store" style="background:var(--darkroom);color:var(--sheet)" id="play" href="https://play.google.com/store/apps/details?id=com.nixare.bangol"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.5v17l14-8.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span><small>Google Play</small><b>Android</b></span></a>
+</div>
+</article>
+<script>
+if (window.__invite) {
+  var open = document.getElementById("open");
+  if (__invite.app) open.href = __invite.app; else open.style.display = "none";
+  document.getElementById("apple").href = __invite.apple;
+  document.getElementById("play").href = __invite.play;
+}
+</script>
+</main>
+<footer><div class="wrap"><nav aria-label="Pagine / Pages"><a href="index.html">Bangol</a><a href="privacy.html">Privacy</a><a href="delete-data.html">Cancellare i dati / Delete your data</a></nav><span>© 2026 Nicola Aresta</span></div></footer>
+</body></html>
