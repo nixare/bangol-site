@@ -77,10 +77,11 @@ function setLang(l) {
           <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 7v7m-3-3 3 3 3-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           <span><small lang="it">Scarica gratis su</small><small lang="en">Free on the</small><b>App Store</b></span>
         </a>
-        <a class="store store-play" href="https://play.google.com/store/apps/details?id=com.nixare.bangol&amp;referrer=utm_source%3Dsite">
+        <!-- Play is not public yet (20/11/2026): back to the store-play link when production is out. -->
+        <span class="store store-soon" style="opacity:.6;cursor:default">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.5v17l14-8.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
-          <span><small lang="it">Scarica gratis su</small><small lang="en">Free on</small><b>Google Play</b></span>
-        </a>
+          <span><small lang="it">Presto su</small><small lang="en">Soon on</small><b>Google Play</b></span>
+        </span>
       </div>
     </div>
     <div class="phone" aria-label="Una partita di Bangol" role="img">
@@ -212,10 +213,11 @@ if (document.documentElement.classList.contains("en")) { var r = document.getEle
           <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 7v7m-3-3 3 3 3-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           <span><small lang="it">Scarica gratis su</small><small lang="en">Free on the</small><b>App Store</b></span>
         </a>
-        <a class="store store-play" href="https://play.google.com/store/apps/details?id=com.nixare.bangol&amp;referrer=utm_source%3Dsite">
+        <!-- Play is not public yet (20/11/2026): back to the store-play link when production is out. -->
+        <span class="store store-soon" style="opacity:.6;cursor:default">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.5v17l14-8.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
-          <span><small lang="it">Scarica gratis su</small><small lang="en">Free on</small><b>Google Play</b></span>
-        </a>
+          <span><small lang="it">Presto su</small><small lang="en">Soon on</small><b>Google Play</b></span>
+        </span>
       </div>
     </div>
     <figure class="qr">
@@ -255,7 +257,7 @@ if (document.documentElement.classList.contains("en")) { var r = document.getEle
   <img src="img/icon.webp" alt="" width="40" height="40">
   <div><b>Bangol</b><small><span lang="it">Il duello foto a due · Gratis</span><span lang="en">The photo duel for two · Free</span></small></div>
   <a class="dock-get store-apple" href="https://apps.apple.com/app/id6811360804?pt=bangol&amp;ct=site_dock&amp;mt=8" tabindex="-1"><span lang="it">Scarica</span><span lang="en">Get it</span></a>
-  <a class="dock-get store-play" href="https://play.google.com/store/apps/details?id=com.nixare.bangol&amp;referrer=utm_source%3Dsite_dock" tabindex="-1"><span lang="it">Scarica</span><span lang="en">Get it</span></a>
+  <span class="dock-get store-play" style="opacity:.6"><span lang="it">Presto</span><span lang="en">Soon</span></span>
 </div>
 <script>
 (function () {
