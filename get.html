@@ -7,8 +7,9 @@
   var ua = navigator.userAgent || "";
   var apple = "https://apps.apple.com/app/id6811360804?pt=bangol&ct=" + encodeURIComponent(q || "qr") + "&mt=8";
   var play = "https://play.google.com/store/apps/details?id=com.nixare.bangol&referrer=" + encodeURIComponent(q || "utm_source=qr");
-  if (/android/i.test(ua)) location.replace(play);
-  else if (/iphone|ipad|ipod|macintosh/i.test(ua) && "ontouchend" in document || /iphone|ipad|ipod/i.test(ua)) location.replace(apple);
+  // Play is not public yet (20/11/2026): Android stays here and reads «presto». Back to
+  // `if (/android/i.test(ua)) location.replace(play); else if (` when production is out.
+  if (/iphone|ipad|ipod|macintosh/i.test(ua) && "ontouchend" in document || /iphone|ipad|ipod/i.test(ua)) location.replace(apple);
   window.__stores = { apple: apple, play: play };
 })();
 </script></head><body>
@@ -20,10 +21,10 @@
 <p>Il duello foto a due, sul tuo telefono. / The photo duel for two, on your own phone.</p>
 <div class="stores">
 <a class="store amber" id="apple" href="https://apps.apple.com/app/id6811360804"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 7v7m-3-3 3 3 3-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><small>App Store</small><b>iPhone · iPad</b></span></a>
-<a class="store" style="background:var(--darkroom);color:var(--sheet)" id="play" href="https://play.google.com/store/apps/details?id=com.nixare.bangol"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.5v17l14-8.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span><small>Google Play</small><b>Android</b></span></a>
+<span class="store" style="background:var(--darkroom);color:var(--sheet);opacity:.7" id="play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.5v17l14-8.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span><small>Android</small><b>Presto · Soon</b></span></span>
 </div>
 </article>
-<script>if (window.__stores) { document.getElementById("apple").href = __stores.apple; document.getElementById("play").href = __stores.play; }</script>
+<script>if (window.__stores) { document.getElementById("apple").href = __stores.apple; }</script>
 </main>
 <footer><div class="wrap"><nav aria-label="Pagine / Pages"><a href="index.html">Bangol</a><a href="privacy.html">Privacy</a><a href="delete-data.html">Cancellare i dati / Delete your data</a></nav><span>© 2026 Nicola Aresta</span></div></footer>
 </body></html>
