@@ -57,6 +57,9 @@ html:not(.en) .lang [data-l=it],html.en .lang [data-l=en]{background:var(--safel
 .store:active{transform:translateY(2px);box-shadow:0 3px 0 rgba(0,0,0,.35)}
 /* The visitor's own store first and amber; a computer: the App Store amber, both shown. */
 .store-apple{background:var(--safelight)}
+/* Apple's own badge (20/11/2026), as Apple draws it: never recoloured or redrawn. */
+.badge{display:inline-flex;align-items:center;flex:0 0 auto}
+.badge img{display:block;height:54px;width:auto}
 html.android .store-play{order:-1;background:var(--safelight)}
 html.android .store-apple{background:var(--sheet)}
 .store svg{width:26px;height:26px;flex:none}

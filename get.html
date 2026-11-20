@@ -20,11 +20,12 @@
 <h1>Bangol</h1>
 <p>Il duello foto a due, sul tuo telefono. / The photo duel for two, on your own phone.</p>
 <div class="stores">
-<a class="store amber" id="apple" href="https://apps.apple.com/app/id6811360804"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 7v7m-3-3 3 3 3-3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span><small>App Store</small><b>iPhone · iPad</b></span></a>
+<a class="badge" id="apple" href="https://apps.apple.com/app/id6811360804"><img id="badge" src="img/app-store-badge-it.svg" alt="Scarica su App Store / Download on the App Store" width="162" height="54"></a>
 <span class="store" style="background:var(--darkroom);color:var(--sheet);opacity:.7" id="play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3.5v17l14-8.5z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span><small>Android</small><b>Presto · Soon</b></span></span>
 </div>
 </article>
-<script>if (window.__stores) { document.getElementById("apple").href = __stores.apple; }</script>
+<script>if (window.__stores) { document.getElementById("apple").href = __stores.apple; }
+if (!/^it\b/i.test(navigator.language || "it")) document.getElementById("badge").src = "img/app-store-badge-en.svg";</script>
 </main>
 <footer><div class="wrap"><nav aria-label="Pagine / Pages"><a href="index.html">Bangol</a><a href="privacy.html">Privacy</a><a href="delete-data.html">Cancellare i dati / Delete your data</a></nav><span>© 2026 Nicola Aresta</span></div></footer>
 </body></html>
